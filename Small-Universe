@@ -1,0 +1,81 @@
+# Small-Universe
+
+import java.util.HashSet;
+
+import java.util.Scanner;
+
+import java.util.Set;
+
+class Solution {
+
+  public int firstMissingPositive(int[] nums) {
+
+    Set<Integer> set = new HashSet<>();
+
+    // Add all positive integers to the HashSet
+
+    for (int num : nums) {
+
+      if (num > 0) {
+
+        set.add(num);
+
+      }
+
+    }
+
+    // Find the smallest missing positive integer
+
+    int smallestMissing = 1;
+
+    while (set.contains(smallestMissing)) {
+
+      smallestMissing++;
+
+    }
+
+    return smallestMissing;
+
+  }
+
+}
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    String inputString = scanner.nextLine();
+
+    // Split the input string into tokens
+
+    String[] tokens = inputString.split(" ");
+
+    // Parse the tokens into an integer array
+
+    int[] nums = new int[tokens.length];
+
+    for (int i = 0; i < tokens.length; i++) {
+
+      nums[i] = Integer.parseInt(tokens[i]);
+
+    }
+
+    // Create an instance of the Solution class
+
+    Solution solution = new Solution();
+
+    // Call the firstMissingPositive method and print the result
+
+    int result = solution.firstMissingPositive(nums);
+
+    System.out.println( result);
+
+    // Close the scanner
+
+    scanner.close();
+
+  }
+
+}
