@@ -1,0 +1,101 @@
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  private static boolean distribute(int total, int blocks, int start, int[] result, int idx) {
+
+    if (idx == blocks) {
+
+      return total == 0;
+
+    }
+
+
+
+    for (int i = start; ; i++) {
+
+      int pronic = i * (i + 1);
+
+      if (pronic > total) {
+
+        break;
+
+      }
+
+      result[idx] = pronic;
+
+      if (distribute(total - pronic, blocks, i + 1, result, idx + 1)) {
+
+        return true;
+
+      }
+
+    }
+
+
+
+    return false;
+
+  }
+
+
+
+  public static int[] distributePronicResources(int totalResources, int numBlocks) {
+
+    if (totalResources < 0 || numBlocks <= 0 || numBlocks > totalResources) {
+
+      return null;
+
+    }
+
+
+
+    int[] result = new int[numBlocks];
+
+    if (!distribute(totalResources, numBlocks, 0, result, 0)) {
+
+      return null;
+
+    }
+
+    return result;
+
+  }
+
+
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int totalResources = sc.nextInt();
+
+    int numBlocks = sc.nextInt();
+
+    int[] distribution = distributePronicResources(totalResources, numBlocks);
+
+
+
+    if (distribution != null) {
+
+      for (int i = 0; i < distribution.length; i++) {
+
+        if (i > 0) System.out.print(" ");
+
+        System.out.print(distribution[i]);
+
+      }
+
+      System.out.println();
+
+    } else {
+
+      System.out.println("Distribution not possible or invalid input");
+
+    }
+
+  }
+
+}
