@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+     
+
+    // Input array of elevation levels
+
+    
+
+    String[] input = scanner.nextLine().split("\\s+");
+
+    int[] elevations = new int[input.length];
+
+    for (int i = 0; i < input.length; i++) {
+
+      elevations[i] = Integer.parseInt(input[i]);
+
+    }
+
+     
+
+    // Call function to find peak element
+
+    findPeakElement(elevations);
+
+  }
+
+
+
+  // Function to find the index of any peak element in the array
+
+  private static void findPeakElement(int[] elevations) 
+
+  {
+
+    System.out.print("Peak Element Position: "); 
+
+    for (int i = 1; i < elevations.length - 1; i++) {
+
+      if (elevations[i] > elevations[i - 1] && elevations[i] > elevations[i + 1]) {
+
+        System.out.print((i+1)+" ");
+
+         
+
+      }
+
+    }
