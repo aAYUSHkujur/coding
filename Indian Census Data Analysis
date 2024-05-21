@@ -1,0 +1,163 @@
+import java.util.*;
+
+
+
+class CensusData {
+
+  String city;
+
+  String state;
+
+  String ageGroup;
+
+  String gender;
+
+  int population;
+
+
+
+  public CensusData(String city, String state, String ageGroup, String gender, int population) {
+
+    this.city = city;
+
+    this.state = state;
+
+    this.ageGroup = ageGroup;
+
+    this.gender = gender;
+
+    this.population = population;
+
+  }
+
+}
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int n = sc.nextInt();
+
+    List<CensusData> censusList = new ArrayList<>();
+
+
+
+    for (int i = 0; i < n; i++) {
+
+      String city = sc.next();
+
+      String state = sc.next();
+
+      String ageGroup = sc.next();
+
+      String gender = sc.next();
+
+      int population = sc.nextInt();
+
+      censusList.add(new CensusData(city, state, ageGroup, gender, population));
+
+    }
+
+
+
+    processCensusData(censusList);
+
+  }
+
+
+
+  static void processCensusData(List<CensusData> censusList) {
+
+    Map<String, Integer> statePopulation = new HashMap<>();
+
+    Map<String, String> highestPopulationCity = new HashMap<>();
+
+    Map<String, Integer> cityPopulation = new HashMap<>();
+
+    Map<String, Map<String, Integer>> ageGroupStateDistribution = new HashMap<>();
+
+    Map<String, Integer> genderRatio = new HashMap<>();
+
+
+
+    for (CensusData data : censusList) {
+
+      statePopulation.put(data.state, statePopulation.getOrDefault(data.state, 0) + data.population);
+
+
+
+      cityPopulation.put(data.city, cityPopulation.getOrDefault(data.city, 0) + data.population);
+
+
+
+      ageGroupStateDistribution.computeIfAbsent(data.state, k -> new HashMap<>()).merge(data.ageGroup, data.population, Integer::sum);
+
+
+
+      String genderKey = data.city + "_" + data.gender;
+
+      genderRatio.put(genderKey, genderRatio.getOrDefault(genderKey, 0) + data.population);
+
+    }
+
+
+
+    for (CensusData data : censusList) {
+
+      highestPopulationCity.compute(data.state, (k, v) -> {
+
+        if (v == null || cityPopulation.get(v) < cityPopulation.get(data.city)) {
+
+          return data.city;
+
+        }
+
+        return v;
+
+      });
+
+    }
+
+
+
+    statePopulation.forEach((state, population) -> System.out.println(state + " Total Population: " + population));
+
+    highestPopulationCity.forEach((state, city) -> System.out.println("Highest Population in " + state + ": " + city));
+
+
+
+    ageGroupStateDistribution.forEach((state, ageGroupMap) -> {
+
+      int totalStatePopulation = statePopulation.get(state);
+
+      ageGroupMap.forEach((ageGroup, agePopulation) -> {
+
+        double percentage = (agePopulation * 100.0) / totalStatePopulation;
+
+        System.out.printf("Percentage of Age Group %s in %s: %.2f%%\n", ageGroup, state, percentage);
+
+      });
+
+    });
+
+
+
+    genderRatio.forEach((key, value) -> {
+
+      String[] parts = key.split("_");
+
+      String city = parts[0];
+
+      String gender = parts[1];
+
+      System.out.println(city + " " + gender + " Population: " + value);
+
+    });
+
+  }
+
+}
