@@ -1,0 +1,83 @@
+import java.util.*;
+
+public class Main {
+
+
+
+  public static boolean isShuffle(String first, String second, String result) {
+
+    if (first.length() + second.length() != result.length()) {
+
+      return false;
+
+    }
+
+
+
+    int i = 0, j = 0, k = 0;
+
+
+
+    // Traverse through the characters of the result string
+
+    while (k < result.length()) {
+
+      if (i < first.length() && first.charAt(i) == result.charAt(k)) {
+
+        i++;
+
+      }
+
+      else if (j < second.length() && second.charAt(j) == result.charAt(k)) {
+
+        j++;
+
+      }
+
+      else {
+
+        return false;
+
+      }
+
+      k++;
+
+    }
+
+
+
+    // Return true if all characters of result were matched with characters of first and second strings
+
+    return i >= first.length() && j >= second.length();
+
+  }
+
+
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    String str1 = sc.next();
+
+    String str2 = sc.next();
+
+    String str3 = sc.next();
+
+
+
+    if (isShuffle(str1, str2, str3)) {
+
+      System.out.println("'" + str3 + "' is a perfect weave of '" + str1 + "' and '" + str2 + "'.");
+
+    } else {
+
+      System.out.println("'" + str3 + "' fails to weave '" + str1 + "' and '" + str2 + "' correctly.");
+
+    }
+
+
+
+  }
+
+}
