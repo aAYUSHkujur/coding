@@ -1,0 +1,78 @@
+import java.util.ArrayList;
+
+import java.util.List;
+
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    String input = scanner.nextLine();
+
+    scanner.close();
+
+
+
+    // Convert input string to list of integers
+
+    List<Integer> nums = new ArrayList<>();
+
+    String[] numsStr = input.split(",");
+
+    for (String numStr : numsStr) {
+
+      nums.add(Integer.parseInt(numStr.trim())); // trim any leading or trailing spaces
+
+    }
+
+
+
+    // Call seekout method and print the result
+
+    int result = seekout(nums);
+
+    System.out.println(result);
+
+  }
+
+
+
+  public static int seekout(List<Integer> nums) {
+
+    int maxSum = Integer.MIN_VALUE;
+
+
+
+    // Iterate through all possible subarrays of length multiple of 3
+
+    for (int i = 0; i < nums.size(); i++) {
+
+      int sum = 0;
+
+      for (int j = i; j < nums.size(); j++) {
+
+        sum += nums.get(j);
+
+        // Check if the subarray length is a multiple of 3
+
+        if ((j - i + 1) % 3 == 0) {
+
+          maxSum = Math.max(maxSum, sum);
+
+        }
+
+      }
+
+    }
+
+    return maxSum;
+
+  }
+
+}
+
