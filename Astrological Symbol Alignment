@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    int n = scanner.nextInt();
+
+    int[][] grid = new int[n][n];
+
+    for (int i = 0; i < n; i++) {
+
+      for (int j = 0; j < n; j++) {
+
+        grid[i][j] = scanner.nextInt();
+
+      }
+
+    }
+
+    System.out.println(minSwapsToAlign(grid));
+
+  }
+
+
+
+  private static int minSwapsToAlign(int[][] grid) {
+
+    int totalSwaps = 0;
+
+    for (int i = 0; i < grid.length; i++) {
+
+      for (int j = 0; j < grid[i].length; j++) {
+
+        // Find the position where grid[i][j] should be and swap it
+
+        while (grid[i][j] != j + 1) {
+
+          int correctPos = grid[i][j] - 1;
+
+          int temp = grid[i][correctPos];
+
+          grid[i][correctPos] = grid[i][j];
+
+          grid[i][j] = temp;
+
+          totalSwaps++;
+
+        }
+
+      }
+
+    }
+
+    return totalSwaps;
+
+  }
+
+}
