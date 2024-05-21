@@ -1,0 +1,75 @@
+import java.util.*;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+     
+
+    // Input product IDs for platform 1
+
+     
+
+    List<Integer> platform1Products = new ArrayList<>();
+
+    String[] platform1Input = scanner.nextLine().split("\\s+");
+
+    for (String productId : platform1Input) {
+
+      platform1Products.add(Integer.parseInt(productId));
+
+    }
+
+     
+
+    // Input product IDs for platform 2
+
+     
+
+    List<Integer> platform2Products = new ArrayList<>();
+
+    String[] platform2Input = scanner.nextLine().split("\\s+");
+
+    for (String productId : platform2Input) {
+
+      platform2Products.add(Integer.parseInt(productId));
+
+    }
+
+     
+
+    // Call function to find intersection
+
+    findIntersection(platform1Products, platform2Products);
+
+  }
+
+
+
+  // Function to find intersection of collections
+
+  private static void findIntersection(List<Integer> list1, List<Integer> list2) {
+
+    Set<Integer> set1 = new HashSet<>(list1);
+
+    Set<Integer> intersection = new LinkedHashSet<>();
+
+    for (int num : list2) {
+
+      if (set1.contains(num)) {
+
+        intersection.add(num);
+
+      }
+
+    }
+
+    System.out.println("Common Products: " + intersection);
+
+  }
+
+}
