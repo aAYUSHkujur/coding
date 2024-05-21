@@ -1,0 +1,91 @@
+import java.util.*;
+
+public class Main {
+
+  public static int calculateSum(List<Integer> numbers) {
+
+    int sum = 0;
+
+    for (int num : numbers) {
+
+      sum += num;
+
+    }
+
+    return sum;
+
+  }
+
+
+
+  public static int calculateProduct(List<Integer> numbers) {
+
+    int product = 1;
+
+    for (int num : numbers) {
+
+      product *= num;
+
+    }
+
+    return product;
+
+  }
+
+
+
+  public static int numbers(List<Integer> list) {
+
+    List<Integer> even = new ArrayList<>();
+
+    List<Integer> odd = new ArrayList<>();
+
+    for (int i : list) {
+
+      if (i % 2 == 0) {
+
+        even.add(i);
+
+      }
+
+      else{
+
+        odd.add(i);
+
+      }   
+
+    }
+
+    int sumOfEven = calculateSum(even);
+
+    int productOfOdd = calculateProduct(odd);
+
+
+
+    return productOfOdd-sumOfEven;
+
+  }
+
+
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int n = sc.nextInt();
+
+    List<Integer> list = new ArrayList<>();
+
+    for (int i = 0; i < n; i++) {
+
+      int element = sc.nextInt();
+
+      list.add(element);
+
+    }
+
+    System.out.println(numbers(list));
+
+  }
+
+}
