@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    double speed = scanner.nextDouble();
+
+    double angle = scanner.nextDouble();
+
+    System.out.println(calculateTrajectory(speed, angle));
+
+  }
+
+
+
+  private static String calculateTrajectory(double speed, double angle) {
+
+    final double g = 9.81;
+
+    double angleRadians = Math.toRadians(angle);
+
+
+
+    double Ymax = Math.pow(speed * Math.sin(angleRadians), 2) / (2 * g);
+
+    double Xmax = Math.pow(speed, 2) * Math.sin(2 * angleRadians) / g;
+
+
+
+    Ymax = Math.round(Ymax);
+
+    Xmax = Math.round(Xmax);
+
+
+
+    return "Ymax=" + (int) Ymax + "m, Xmax=" + (int) Xmax + "m";
+
+  }
+
+}
