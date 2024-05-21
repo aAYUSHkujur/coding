@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    String input = scanner.nextLine();
+
+    scanner.close();
+
+
+
+    // Convert input string to integer array
+
+    String[] numsStr = input.split(",");
+
+    int[] nums = new int[numsStr.length];
+
+    for (int i = 0; i < numsStr.length; i++) {
+
+      nums[i] = Integer.parseInt(numsStr[i].trim()); // trim any leading or trailing spaces
+
+    }
+
+
+
+    // Call findout method and print the result
+
+    int result = findout(nums);
+
+    System.out.println(result);
+
+  }
+
+
+
+  public static int findout(int[] nums) {
+
+    int maxSum = Integer.MIN_VALUE;
+
+
+
+    // Iterate through all possible subarrays of even length
+
+    for (int i = 0; i < nums.length; i++) {
+
+      int sum = 0;
+
+      for (int j = i; j < nums.length; j++) {
+
+        sum += nums[j];
+
+        // Check if the subarray length is even
+
+        if ((j - i + 1) % 2 == 0) {
+
+          maxSum = Math.max(maxSum, sum);
+
+        }
+
+      }
+
+    }
+
+    return maxSum;
+
+  }
+
+}
+
