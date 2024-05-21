@@ -1,0 +1,69 @@
+import java.util.HashMap;
+
+import java.util.Map;
+
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+     
+
+    // Reading input values
+
+    String[] values = scanner.nextLine().split(" ");
+
+    int[] nums = new int[values.length];
+
+    for (int i = 0; i < values.length; i++) {
+
+      nums[i] = Integer.parseInt(values[i]);
+
+    }
+
+    int target = scanner.nextInt();
+
+     
+
+    // Finding the indices of two numbers that add up to the target
+
+    int[] result = twoSum(nums, target);
+
+     
+
+    // Displaying the result
+
+    System.out.println(result[0] + " " + result[1]);
+
+  }
+
+
+
+  private static int[] twoSum(int[] nums, int target) {
+
+    Map<Integer, Integer> map = new HashMap<>();
+
+    for (int i = 0; i < nums.length; i++) {
+
+      int complement = target - nums[i];
+
+      if (map.containsKey(complement)) {
+
+        return new int[]{map.get(complement), i};
+
+      }
+
+      map.put(nums[i], i);
+
+    }
+
+    throw new IllegalArgumentException("No two sum solution");
+
+  }
+
+}
