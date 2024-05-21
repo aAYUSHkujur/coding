@@ -1,0 +1,141 @@
+import java.util.Arrays;
+
+import java.util.Scanner;
+
+
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+
+    int numOfCommands = sc.nextInt();
+
+    sc.nextLine(); // Consume the remaining newline
+
+    Object[] commands = new Object[numOfCommands];
+
+    for (int i = 0; i < numOfCommands; i++) {
+
+      if (sc.hasNextInt()) {
+
+        commands[i] = sc.nextInt();
+
+      } else {
+
+        commands[i] = sc.next();
+
+      }
+
+    }
+
+
+
+    String reservationSummary = kabaddiMatchBooking(commands);
+
+    System.out.println(reservationSummary);
+
+  }
+
+
+
+  public static String kabaddiMatchBooking(Object[] commands) {
+
+    boolean[] seats = new boolean[15]; // 15 seats initially all false (unreserved)
+
+    boolean[] seatQueried = new boolean[15]; // Track if a seat's status has been queried or changed
+
+    StringBuilder summary = new StringBuilder();
+
+
+
+    for (Object command : commands) {
+
+      if (command instanceof String) {
+
+        String cmd = (String) command;
+
+        if ("book".equalsIgnoreCase(cmd)) {
+
+          for (int i = 0; i < seats.length; i++) {
+
+            if (!seats[i]) {
+
+              seats[i] = true;
+
+              seatQueried[i] = true; // Mark this seat as changed
+
+              break;
+
+            }
+
+          }
+
+        } else if (cmd.toLowerCase().startsWith("cancel")) {
+
+          String[] parts = cmd.split(" ");
+
+          if (parts.length > 1) {
+
+            int seatToCancel = Integer.parseInt(parts[1]) - 1;
+
+            if (seatToCancel >= 0 && seatToCancel < seats.length) {
+
+              seats[seatToCancel] = false;
+
+              seatQueried[seatToCancel] = true; // Mark this seat as changed
+
+            }
+
+          }
+
+        }
+
+      } else if (command instanceof Integer) {
+
+        int seatToCheck = (Integer) command - 1;
+
+        if (seatToCheck >= 0 && seatToCheck < seats.length) {
+
+          seatQueried[seatToCheck] = true; // Mark this seat as queried
+
+        }
+
+      }
+
+    }
+
+
+
+    // Generate the summary for each seat that has been queried or changed
+
+    for (int i = 0; i < seats.length; i++) {
+
+      if (seatQueried[i]) {
+
+        summary.append("Seat ").append(i + 1).append(": ")
+
+            .append(seats[i] ? "Reserved" : "Available").append("\n");
+
+      }
+
+    }
+
+
+
+    // For seats not explicitly mentioned, add a general statement
+
+    if (summary.length() == 0 || summary.toString().split("\n").length < seats.length) {
+
+      summary.append("Other seats: Available");
+
+    }
+
+
+
+    return summary.toString().trim();
+
+  }
+
+}
