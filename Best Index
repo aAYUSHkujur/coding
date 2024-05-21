@@ -1,0 +1,107 @@
+import java.util.Scanner;
+
+class Main {
+
+public static void main(String[] args) {
+
+Scanner scanner = new Scanner(System.in);
+
+
+
+ // Input the size of the array
+
+ int n = scanner.nextInt();
+
+
+
+ // Input the array elements
+
+int[] arr = new int[n];
+
+ for (int i = 0; i < n; i++) {
+
+ arr[i] = scanner.nextInt();
+
+
+
+ }
+
+
+
+ // Output the result
+
+ long result = findBestIndex(arr,arr.length);
+
+ System.out.println(result);
+
+
+
+ scanner.close();
+
+}
+
+
+
+// Function to find the best index
+
+public static long findBestIndex(int[] arr,int n) 
+
+ {
+
+ int psum=Integer.MIN_VALUE;
+
+for(int i=0;i<n;i++)
+
+{
+
+int a=i+1;
+
+int j=2;
+
+int t=2;
+
+
+
+int csum=arr[i];
+
+while(i+j<n)
+
+{
+
+int c=a;
+
+for(int k=c;k<=i+j;k++)
+
+{
+
+a++;
+
+csum=csum+arr[k];
+
+}
+
+t++;
+
+j=j+t;
+
+}
+
+if(csum>psum)
+
+{
+
+psum=csum;
+
+}
+
+
+
+}
+
+
+
+ return psum;
+
+}
+
+}
