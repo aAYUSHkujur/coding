@@ -1,0 +1,43 @@
+import math
+
+import os
+
+import random
+
+import re
+
+import sys
+
+
+
+# Complete the solve function below.
+
+def solve(s):
+
+  li = s.split(" ")
+
+  new_li = []
+
+  for i in li:
+
+    ele=i.capitalize()
+
+    new_li.append(ele)
+
+   
+
+  result = " ".join(new_li)
+
+  return result
+
+    
+
+
+
+if __name__ == '__main__':
+
+  s = input()
+
+  result = solve(s)
+
+  print(result)
